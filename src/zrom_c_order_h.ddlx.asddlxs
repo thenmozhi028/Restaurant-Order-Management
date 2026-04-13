@@ -1,0 +1,100 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'Restaurant Order',
+    typeNamePlural: 'Restaurant Orders',
+    title: { type: #STANDARD, label: 'Order ID', value: 'OrderId' }
+  }
+}
+annotate entity ZROM_C_ORDER_H with
+{
+  @UI.facet: [
+    {
+      id: 'OrderHeader',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Order Information',
+      position: 10
+    },
+    {
+      id: 'OrderItems',
+      purpose: #STANDARD,
+      type: #LINEITEM_REFERENCE,
+      label: 'Order Items',
+      position: 20,
+      targetElement: '_orderItems'
+    },
+    {
+      id: 'StatusTimeline',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Status Timeline',
+      position: 30
+    }
+  ]
+
+  @UI: {
+    lineItem:       [{ position: 10, label: 'Order ID' }],
+    identification: [{ position: 10, label: 'Order ID' }],
+    selectionField: [{ position: 10 }]
+  }
+  OrderId;
+
+  @UI: {
+    lineItem:       [{ position: 20, label: 'Customer' }],
+    identification: [{ position: 20, label: 'Customer Name' }],
+    selectionField: [{ position: 20 }]
+  }
+  CustomerName;
+
+  @UI: {
+    lineItem:       [{ position: 30, label: 'Table No.' }],
+    identification: [{ position: 30, label: 'Table Number' }],
+    selectionField: [{ position: 30 }]
+  }
+  TableNo;
+
+  @UI: {
+    lineItem:       [{ position: 40, label: 'Status' }],
+    identification: [{ position: 40, label: 'Order Status' }],
+    selectionField: [{ position: 40 }]
+  }
+  OrderStatus;
+
+  @UI: {
+    lineItem:       [{ position: 50, label: 'Order Date' }],
+    identification: [{ position: 50, label: 'Order Date' }],
+    selectionField: [{ position: 50 }]
+  }
+  OrderDate;
+
+  @UI: {
+    lineItem:       [{ position: 60, label: 'Order Time' }],
+    identification: [{ position: 60, label: 'Order Time' }]
+  }
+  OrderTime;
+
+  @UI: {
+    lineItem:       [{ position: 70, label: 'Total Amount' }],
+    identification: [{ position: 70, label: 'Total Amount' }]
+  }
+  TotalAmount;
+
+  @UI: {
+    lineItem:       [{ position: 80, label: 'Currency' }],
+    identification: [{ position: 80, label: 'Currency' }]
+  }
+  Currency;
+
+  @UI: { identification: [{ position: 90, label: 'Created By' }] }
+  LocalCreatedBy;
+
+  @UI: { identification: [{ position: 100, label: 'Created At' }] }
+  LocalCreatedAt;
+
+  @UI: { identification: [{ position: 110, label: 'Last Changed By' }] }
+  LocalLastChangedBy;
+
+  @UI: { identification: [{ position: 120, label: 'Last Changed At' }] }
+  LocalLastChangedAt;
+}

@@ -1,0 +1,5 @@
+@EndUserText.label: 'To create service definition'
+define service ZCIT_ROM_UI {
+  expose ZROM_C_ORDER_H;
+  expose ZROM_C_ORDER_I;
+}

@@ -1,0 +1,81 @@
+unmanaged implementation in class zcl_saver unique;
+strict ( 2 );
+with draft;
+define behavior for ZROM_I_ORDER_H alias OrderHeader
+implementation in class zcl_hclass unique
+draft table zrom_order_hdr_d
+lock master total etag LocalLastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+  draft action Activate optimized;
+  draft action Discard;
+  field ( mandatory : create ) OrderId;
+  field ( readonly  : update ) OrderId;
+  field ( mandatory : create ) CustomerName;
+  field ( mandatory : create ) TableNo;
+  field ( readonly  )          OrderStatus;
+  field ( readonly  )          TotalAmount;
+  field ( readonly  )          LocalLastChangedAt;
+  field ( readonly  )          LocalCreatedAt;
+  field ( readonly  )          LocalCreatedBy;
+  action StartPreparing result [1] $self;
+  action MarkCompleted  result [1] $self;
+  association _orderItems { create; with draft; }
+  mapping for zrom_header_t
+  {
+    OrderId           = orderid;
+    CustomerName      = customername;
+    TableNo           = tableno;
+    OrderStatus       = orderstatus;
+    OrderDate         = orderdate;
+    OrderTime         = ordertime;
+    TotalAmount       = totalamount;
+    Currency          = currency;
+    LocalCreatedBy    = local_created_by;
+    LocalCreatedAt    = local_created_at;
+    LocalLastChangedBy  = local_last_changed_by;
+    LocalLastChangedAt  = local_last_changed_at;
+    LastChangedAt       = last_changed_at;
+  }
+}
+define behavior for ZROM_I_ORDER_I alias OrderItem
+implementation in class zcl_iclass unique
+draft table zrom_order_itm_d
+lock dependent by _orderHeader
+authorization dependent by _orderHeader
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+  field ( readonly : update, mandatory : create ) ItemNo;
+  field ( readonly ) OrderId;
+  field ( readonly ) TotalAmount;
+  field ( readonly ) LocalCreatedAt;
+  field ( readonly ) LocalCreatedBy;
+  field ( readonly ) LocalLastChangedAt;
+  association _orderHeader { with draft; }
+  mapping for zrom_item_t
+  {
+    OrderId           = orderid;
+    ItemNo            = itemno;
+    ItemName          = itemname;
+    Quantity          = quantity;
+    QuantityUnit      = quantityunit;
+    Price             = price;
+    TotalAmount       = totalamount;
+    Currency          = currency;
+    LocalCreatedBy    = local_created_by;
+    LocalCreatedAt    = local_created_at;
+    LocalLastChangedBy  = local_last_changed_by;
+    LocalLastChangedAt  = local_last_changed_at;
+    LastChangedAt       = last_changed_at;
+  }
+}

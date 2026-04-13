@@ -1,0 +1,29 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZROM_C_ORDER_H alias OrderHeader
+{
+  use create;
+  use update;
+  use delete;
+
+  use action StartPreparing;
+  use action MarkCompleted;
+
+  use action Edit;
+  use action Resume;
+  use action Prepare;
+  use action Activate;
+  use action Discard;
+
+  use association _orderItems { create; with draft; }
+}
+
+define behavior for ZROM_C_ORDER_I alias OrderItem
+{
+  use update;
+  use delete;
+
+  use association _orderHeader { with draft; }
+}

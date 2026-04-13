@@ -1,0 +1,68 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'Order Item',
+    typeNamePlural: 'Order Items',
+    title: { type: #STANDARD, label: 'Item No', value: 'ItemNo' }
+  }
+}
+annotate entity ZROM_C_ORDER_I with
+{
+  @UI.facet: [
+    {
+      id: 'ItemDetails',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Item Details',
+      position: 10
+    }
+  ]
+
+  @UI: {
+    lineItem:       [{ position: 10, label: 'Item No' }],
+    identification: [{ position: 10, label: 'Item No' }]
+  }
+  ItemNo;
+
+  @UI: {
+    lineItem:       [{ position: 20, label: 'Item Name' }],
+    identification: [{ position: 20, label: 'Item Name' }]
+  }
+  ItemName;
+
+  @UI: {
+    lineItem:       [{ position: 30, label: 'Quantity' }],
+    identification: [{ position: 30, label: 'Quantity' }]
+  }
+  Quantity;
+
+  @UI: {
+    lineItem:       [{ position: 40, label: 'Unit' }],
+    identification: [{ position: 40, label: 'Unit' }]
+  }
+  QuantityUnit;
+
+  @UI: {
+    lineItem:       [{ position: 50, label: 'Price' }],
+    identification: [{ position: 50, label: 'Price' }]
+  }
+  Price;
+
+  @UI: {
+    lineItem:       [{ position: 60, label: 'Total' }],
+    identification: [{ position: 60, label: 'Total' }]
+  }
+  TotalAmount;
+
+  @UI: {
+    lineItem:       [{ position: 70, label: 'Currency' }],
+    identification: [{ position: 70, label: 'Currency' }]
+  }
+  Currency;
+
+  @UI: { identification: [{ position: 80, label: 'Created By' }] }
+  LocalCreatedBy;
+
+  @UI: { identification: [{ position: 90, label: 'Created At' }] }
+  LocalCreatedAt;
+}
